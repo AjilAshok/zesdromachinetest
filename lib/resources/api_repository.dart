@@ -4,8 +4,11 @@ import 'api_provider.dart';
 class ApiRepository {
   final _provider = ApiProvider();
 
-  Future<Home> fetchCovidList() {
-    return _provider.fetchCovidList();
+  Future<Home> fetchTrendList() {
+    return _provider.fetchTrendingList();
+  }
+  Future<Home>fetechPopular(){
+    return _provider.fetchPopularList();
   }
 }
 

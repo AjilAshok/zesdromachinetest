@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 abstract class HomeEvent extends Equatable {
   const HomeEvent();
 
@@ -7,3 +8,5 @@ abstract class HomeEvent extends Equatable {
 }
 
 class GetHomeList extends HomeEvent {}
+
+// class GetPopularList extends HomeEvent {}

@@ -23,13 +23,12 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   void initState() {
     // TODO: implement initState
     _homeBloc.add(GetHomeList());
+    // _homeBloc.add(GetPopularList());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Home? _homemodel;
-    List list = [1, 2, 3, 4, 5, 6];
     return Scaffold(
       backgroundColor: mainColor,
       appBar: AppBar(
@@ -69,7 +68,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                 } else if (state is HomeLoading) {
                   return _buildLoading();
                 } else if (state is HomeLoaded) {
-                  return ListviewWidget(context, state.homeModel);
+                  return ListviewWidget(
+                      context, state.homeModel, state.homeModel2);
                 } else {
                   return Container();
                 }
@@ -81,8 +81,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
     );
   }
 
-  Padding ListviewWidget(BuildContext context, Home model) {
-    Result? result;
+  Padding ListviewWidget(BuildContext context, Home model, Home model1) {
+    // Result? result;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -95,11 +95,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
           const TextHomeWidget(
             title: 'Trending this week',
           ),
-          SizedBox(
+         const SizedBox(
             height: 15,
           ),
-          Flexible(fit: FlexFit.loose, child: SliderScreen()),
-          SizedBox(
+          Flexible(fit: FlexFit.loose, child: SliderScreen(resultList: model.results,)),
+          const SizedBox(
             height: 10,
           ),
           const TextHomeWidget(title: 'Popular Movies'),
@@ -107,115 +107,132 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             height: 10,
           ),
           SizedBox(
-            height: 200,
+            height: 250,
             child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  width: 10,
-                );
-              },
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: model.results.length,
-              itemBuilder: (BuildContext context, int index) => Column(
-                children: [
-                  Container(
-                    height: 150,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        // image: DecorationImage(image: NetworkImage(result)),
-                        color: Colors.red),
-                    child: Text(''),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    index.toString(),
-                    style: GoogleFonts.inter(color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: 10,
+                  );
+                },
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: model.results.length,
+                itemBuilder: (BuildContext context, int index) {
+                  List<Result> resultList = model.results;
+                  Result result = resultList[index];
+
+                  return Column(
+                    children: [
+                      Container(
+                        height: 150,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500${result.posterPath}')),
+                            color: Colors.red),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          result.title.toString(),
+                          maxLines: 3,
+                          style: GoogleFonts.inter(color: Colors.white),
+                        ),
+                      )
+                    ],
+                  );
+                }),
           ),
           const TextHomeWidget(title: 'Trending Now'),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SizedBox(
-            height: 200,
+            height: 250,
             child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  width: 10,
-                );
-              },
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 15,
-              itemBuilder: (BuildContext context, int index) => Column(
-                children: [
-                  Container(
-                    height: 150,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.red),
-                    child: Text(index.toString()),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    index.toString(),
-                    style: GoogleFonts.inter(color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: 10,
+                  );
+                },
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 15,
+                itemBuilder: (BuildContext context, int index) {
+                  List<Result> resultList = model1.results;
+                  Result result = resultList[index];
+
+                  return Column(
+                    children: [
+                      Container(
+                        height: 150,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500${result.posterPath}')),
+                            color: Colors.red),
+                      ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          result.title.toString(),
+                          maxLines: 3,
+                          style: GoogleFonts.inter(color: Colors.white),
+                        ),
+                      )
+                    ],
+                  );
+                }),
           ),
           const TextHomeWidget(title: 'Now Playing'),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SizedBox(
-            height: 200,
+            height: 250,
             child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  width: 10,
-                );
-              },
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: 15,
-              itemBuilder: (BuildContext context, int index) => Column(
-                children: [
-                  Container(
-                    height: 150,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.red),
-                    child: Text(index.toString()),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    index.toString(),
-                    style: GoogleFonts.inter(color: Colors.white),
-                  )
-                ],
-              ),
-            ),
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: 10,
+                  );
+                },
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 15,
+                itemBuilder: (BuildContext context, int index) {
+                  List<Result> resultList = model1.results;
+                  Result result = resultList[index];
+                  return Column(
+                    children: [
+                      Container(
+                        height: 150,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500${result.posterPath}')),
+                            color: Colors.red),
+                        child: Text(index.toString()),
+                      ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          result.title.toString(),
+                          maxLines: 3,
+                          style: GoogleFonts.inter(color: Colors.white),
+                        ),
+                      )
+                    ],
+                  );
+                }),
           ),
         ],
       ),

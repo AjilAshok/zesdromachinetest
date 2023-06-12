@@ -1,14 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class SliderScreen extends StatefulWidget {
-  const SliderScreen({super.key});
+import '../../../model/models.dart';
 
+class SliderScreen extends StatefulWidget {
+  const SliderScreen({super.key, required this.resultList});
+  final List<Result> resultList;
   @override
   State<SliderScreen> createState() => _SliderScreenState();
 }
 
 class _SliderScreenState extends State<SliderScreen> {
+  late List<Result> images;
+
   List imageList = [
     {"id": 1, "image_path": 'asset/images/Frame 16.png'},
     {"id": 2, "image_path": 'asset/images/google 1.png'},
@@ -16,6 +20,14 @@ class _SliderScreenState extends State<SliderScreen> {
   ];
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
+  @override
+  void initState() {
+    images = widget.resultList;
+
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(

@@ -14,7 +14,10 @@ class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
   final Home homeModel;
-  const HomeLoaded(this.homeModel);
+  final Home homeModel2;
+  const HomeLoaded(
+    this.homeModel,this.homeModel2
+  );
 }
 
 class HomeError extends HomeState {
