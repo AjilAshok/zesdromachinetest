@@ -4,25 +4,41 @@ import 'package:flutter/material.dart';
 import '../../../model/models.dart';
 
 class SliderScreen extends StatefulWidget {
-  const SliderScreen({super.key, required this.resultList});
-  final List<Result> resultList;
+  const SliderScreen({super.key, required this.images});
+  final List<Result> images;
   @override
   State<SliderScreen> createState() => _SliderScreenState();
 }
 
 class _SliderScreenState extends State<SliderScreen> {
-  late List<Result> images;
+  List<Map<String, dynamic>> imageList = [];
 
-  List imageList = [
-    {"id": 1, "image_path": 'asset/images/Frame 16.png'},
-    {"id": 2, "image_path": 'asset/images/google 1.png'},
-    {"id": 3, "image_path": 'asset/images/google 1.png'}
-  ];
+  // List imageList = [
+  //   {"id": 1, "image_path": 'asset/images/Frame 16.png'},
+  //   {"id": 2, "image_path": 'asset/images/google 1.png'},
+  //   {"id": 3, "image_path": 'asset/images/google 1.png'}
+  // ];
   final CarouselController carouselController = CarouselController();
   int currentIndex = 0;
   @override
   void initState() {
-    images = widget.resultList;
+    imageList = [
+      {
+        "id": 1,
+        "image_path":
+            widget.images.isNotEmpty ? widget.images[0].posterPath : ""
+      },
+      {
+        "id": 2,
+        "image_path":
+            widget.images.isNotEmpty ? widget.images[1].posterPath : ""
+      },
+      {
+        "id": 3,
+        "image_path":
+            widget.images.isNotEmpty ? widget.images[2].posterPath : ""
+      },
+    ];
 
     // TODO: implement initState
     super.initState();
@@ -39,9 +55,9 @@ class _SliderScreenState extends State<SliderScreen> {
           child: CarouselSlider(
             items: imageList
                 .map(
-                  (item) => Image.asset(
-                    item['image_path'],
-                    fit: BoxFit.cover,
+                  (item) => Image.network(
+                    'https://image.tmdb.org/t/p/w500${item['image_path']}',
+                    fit: BoxFit.fill,
                     width: double.infinity,
                   ),
                 )

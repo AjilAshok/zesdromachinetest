@@ -95,10 +95,14 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
           const TextHomeWidget(
             title: 'Trending this week',
           ),
-         const SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Flexible(fit: FlexFit.loose, child: SliderScreen(resultList: model.results,)),
+          Flexible(
+              fit: FlexFit.loose,
+              child: SliderScreen(
+                images: model.results,
+              )),
           const SizedBox(
             height: 10,
           ),
