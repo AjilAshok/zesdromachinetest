@@ -1,0 +1,7 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.project.sourcePaths": [
+        "lib/blocs/bottom_navbar",
+        "lib/screens/home"
+    ]
+}

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "746184783567",
+    "project_id": "zesdromachinetest",
+    "storage_bucket": "zesdromachinetest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746184783567:android:e0f29f2a0227df47ea29ba",
+        "android_client_info": {
+          "package_name": "com.example.zesdromachinetes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746184783567-r1srcv2ke0gll0huq1j6s9ich21grn8d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zesdromachinetes",
+            "certificate_hash": "74d9ee9a79f7c104635d1b9e175add5bcdac603c"
+          }
+        },
+        {
+          "client_id": "746184783567-lgic11d1kmim3n4knrno98b7ldts62r2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXn9OCPj8LcYyhoQG2Lk1rSNWdLTW872g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746184783567-j5t7ha23cdlmsjp62nn9arnfef4o3gi9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
