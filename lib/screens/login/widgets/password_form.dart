@@ -9,7 +9,7 @@ class PasswordForm extends StatefulWidget {
 }
 
 class _PasswordFormState extends State<PasswordForm> {
-  bool _isPasswordVisible = false;
+  bool _isPasswordVisible = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +49,7 @@ class _PasswordFormState extends State<PasswordForm> {
                 });
               },
               icon: Icon(
-                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
               ),
             ),
           ),
