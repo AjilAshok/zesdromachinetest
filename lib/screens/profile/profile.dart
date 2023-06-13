@@ -14,9 +14,9 @@ class Profile extends StatelessWidget {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final user = auth.currentUser;
     signOut() async {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
       await auth.signOut();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
 
     return Scaffold(

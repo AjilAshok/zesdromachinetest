@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PasswordForm extends StatefulWidget {
-  const PasswordForm({super.key});
+  const PasswordForm({super.key, required this.password});
+  final TextEditingController password;
 
   @override
   State<PasswordForm> createState() => _PasswordFormState();
@@ -24,7 +25,14 @@ class _PasswordFormState extends State<PasswordForm> {
             child: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
               child: TextFormField(
+                controller: widget.password,
                 obscureText: _isPasswordVisible,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter a valid password!';
+                  }
+                  return null;
+                },
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   labelText: 'Password',
