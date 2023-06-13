@@ -152,9 +152,8 @@ class LoginScreen extends StatelessWidget {
                             ),
                           );
                         } else if (state is AuthError) {
-                          return Center(
-                            child: Text('Error: ${state.message}'),
-                          );
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else {
                           return Container();
                         }

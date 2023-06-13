@@ -197,8 +197,8 @@ class Profile extends StatelessWidget {
                     ),
                     child: Text(
                       'LOGOUT',
-                      style:
-                          GoogleFonts.inter(color: Colors.white, fontSize: 14),
+                      style: GoogleFonts.inter(
+                          color: Colors.white, fontSize: 14),
                     )),
               ),
             ],
