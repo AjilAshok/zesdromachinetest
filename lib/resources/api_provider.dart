@@ -4,7 +4,6 @@ import 'package:zesdromachinetes/model/models.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();
-  final String _url = tvShows;
   final String _url1 = trending;
 
   Future<Home> fetchTrendingList() async {

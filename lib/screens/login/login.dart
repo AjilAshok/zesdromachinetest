@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zesdromachinetes/bloc/singup_with_google/singup_event.dart';
 import 'package:zesdromachinetes/bloc/singup_with_google/singup_state.dart';
-// import 'package:zesdromachinetes/data/repositories/user_repository.dart';
 import 'package:zesdromachinetes/screens/home/home_screen.dart';
 import 'package:zesdromachinetes/screens/login/widgets/password_form.dart';
 import 'package:zesdromachinetes/screens/widgets/textwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../bloc/login_active_bloc/auth_bloc.dart';
-import '../../bloc/login_active_bloc/auth_event.dart';
 import '../../bloc/singup_with_google/singup_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -81,8 +78,11 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     print('aaa');
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    pref.setString("email", "useremail@gmail.com");
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const Homepage(),
                     ));
@@ -173,8 +173,8 @@ class LoginScreen extends StatelessWidget {
               return OutlinedButton(
                 onPressed: () {
                   signupBloc.add(SignupLoadingEvent());
-                  final authBloc = BlocProvider.of<AuthBloc>(context);
-                  authBloc.add(Authenticate());
+                  // final authBloc = BlocProvider.of<AuthBloc>(context);
+                  // authBloc.add(Authenticate());
                 },
                 style: OutlinedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -210,10 +210,13 @@ class LoginScreen extends StatelessWidget {
               );
             } else {
               return ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   signupBloc.add(SignupLoadingEvent());
-                  final authBloc = BlocProvider.of<AuthBloc>(context);
-                  authBloc.add(Authenticate());
+                  SharedPreferences pref =
+                      await SharedPreferences.getInstance();
+                  pref.setString("email", "useremail@gmail.com");
+                  // final authBloc = BlocProvider.of<AuthBloc>(context);
+                  // authBloc.add(Authenticate());
                 },
                 child: const Text('Sign Up with Google'),
               );

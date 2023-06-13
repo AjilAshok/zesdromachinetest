@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zesdromachinetes/constant/colors.dart';
-import '../../bloc/login_active_bloc/auth_bloc.dart';
-import '../../bloc/login_active_bloc/auth_event.dart';
+import 'package:zesdromachinetes/screens/login/login.dart';
 import '../widgets/textwidget.dart';
 
 class Profile extends StatelessWidget {
@@ -11,6 +11,14 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+    signOut() async {
+      await auth.signOut();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mainColor,
@@ -44,15 +52,16 @@ class Profile extends StatelessWidget {
                     width: 80,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(150),
-                      image: const DecorationImage(
-                        image: AssetImage('asset/images/Frame 16.png'),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            user?.photoURL ?? 'asset/images/Frame 16.png'),
                       ),
                     ),
                   ),
                   const SizedBox(
                     width: 20,
                   ),
-                  const TextWidget(text: 'Name'),
+                  TextWidget(text: user?.displayName ?? 'name'),
                   const Spacer(),
                   const Text(
                     'Edit Profile',
@@ -142,10 +151,6 @@ class Profile extends StatelessWidget {
               const ProfileOption(
                   imageurl: 'asset/icons/leaderborad.png',
                   title: 'Leaderboard'),
-              // const SizedBox(
-              //   height: 50,
-              // ),
-
               const Spacer(),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 15),
@@ -153,8 +158,30 @@ class Profile extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                     onPressed: () {
-                      final authBloc = BlocProvider.of<AuthBloc>(context);
-                      authBloc.add(Logout());
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: const Text("Are you want to logout"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                              },
+                              child: const Text("No"),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                print('33');
+                                SharedPreferences pref =
+                                    await SharedPreferences.getInstance();
+                                pref.remove("email");
+                                signOut();
+                              },
+                              child: const Text("Yes"),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(

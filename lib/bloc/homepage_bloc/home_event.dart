@@ -9,4 +9,4 @@ abstract class HomeEvent extends Equatable {
 
 class GetHomeList extends HomeEvent {}
 
-// class GetPopularList extends HomeEvent {}
+

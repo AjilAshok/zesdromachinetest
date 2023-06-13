@@ -1,29 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zesdromachinetes/screens/home/home_screen.dart';
+import 'package:zesdromachinetes/screens/login/login.dart';
 
-import 'package:zesdromachinetes/bloc/login_active_bloc/auth_gurad.dart';
-
-import 'bloc/login_active_bloc/auth_bloc.dart';
-
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var email = prefs.getString("email");
   await Firebase.initializeApp();
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'My App',
-      home: BlocProvider(
-        create: (context) => AuthBloc(),
-        child: AuthGuard(),
-      ),
-    );
-  }
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: email == null ? const LoginScreen() : const Homepage(),
+  ));
 }
